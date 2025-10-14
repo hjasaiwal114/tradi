@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    /* Base Options */
+    "target": "es2020",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+
+    /* Output Directory */
+    "outDir": "./dist",
+    "rootDir": ".", // Set root to the project root to include server.ts and src/
+
+    /* Advanced Options */
+    "resolveJsonModule": true
+  },
+  "include": [
+    "server.ts", // Explicitly include the root server file
+    "src/**/*.ts" // Include all .ts files within the src directory
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
