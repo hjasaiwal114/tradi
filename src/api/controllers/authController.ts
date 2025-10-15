@@ -4,6 +4,10 @@ import jwt from 'jsonwebtoken';
 import {config } from '../../config';
 import { sendSignInEmail } from '../../infrastructure/email/emailService';
 
+interface AuthenticatedRequest extends Request {
+    user?: {email: string };
+}
+
 const handleAuthRequest = async (req: Request, res: Response) => {
     const {email} = req.body;
 
@@ -41,10 +45,24 @@ const verifyTokenAndSetCookies = (req: Request, res: Response) => {
     }
 };
 
+const getMyProfile = (req: AuthenticatedRequest, res:Response) => {
+     if (req.user) {
+        res.status(200).json({
+            message: 'Profile fetched successfully',
+            data: {
+                email: req.user.email,
+            },
+        });
+    } else {
+        res.status(401).json({message: 'Not authorized' });
+    }
+};
+
 export {
     handleAuthRequest as handleSignup,
     handleAuthRequest as handleSignin,
     verifyTokenAndSetCookies,
+    getMyProfile
 };
 
 
