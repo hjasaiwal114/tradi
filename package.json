@@ -38,7 +38,8 @@
     "build": "tsc",
     "dev": "nodemon server.ts",
     "lint": "eslint. --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint:fix": "eslint . --ext .ts --fix",
+    "poller": "ts-node src/infrastructure/price-poller/index.ts"
   },
   "repository": {
     "type": "git",
