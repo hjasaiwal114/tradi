@@ -29,10 +29,10 @@ const redisPublisher = new Redis({
 });
 
 redisPublisher.on('connect', () => {
-  console.log('✅ Connected to Redis for publishing.');
+  console.log(' Connected to Redis for publishing.');
 });
 redisPublisher.on('error', (err) => {
-  console.error('❌ Redis publisher error:', err);
+  console.error(' Redis publisher error:', err);
 });
 
 // --- WebSocket Client Logic ---
@@ -40,7 +40,7 @@ const connectToBackpack = () => {
   const ws = new WebSocket(BACKPACK_WS_URL);
 
   ws.on('open', () => {
-    console.log('✅ WebSocket connection to Backpack opened.');
+    console.log(' WebSocket connection to Backpack opened.');
     // Subscribe to the depth stream for each asset using the correct format
     for (const symbol of ASSETS_TO_TRACK.keys()) {
       ws.send(
@@ -50,7 +50,7 @@ const connectToBackpack = () => {
           id: 1,
         }),
       );
-      console.log(`📨 Sent subscription for ${symbol}`);
+      console.log(`Sent subscription for ${symbol}`);
     }
   });
 
@@ -62,7 +62,7 @@ const connectToBackpack = () => {
       if (message.event || !message.data) {
         if (message.event === 'subscribed') {
           console.log(
-            `✅ Successfully subscribed to channel: ${message.channel}`,
+            `Successfully subscribed to channel: ${message.channel}`,
           );
         }
         return;
@@ -106,26 +106,26 @@ const connectToBackpack = () => {
         }
       }
     } catch (error) {
-      console.error('❌ Failed to parse WebSocket message:', error);
+      console.error('Failed to parse WebSocket message:', error);
     }
   });
 
   ws.on('close', () => {
     console.warn(
-      '⚠️ WebSocket connection closed. Reconnecting in 5 seconds...',
+      ' WebSocket connection closed. Reconnecting in 5 seconds...',
     );
     setTimeout(connectToBackpack, 5000);
   });
 
   ws.on('error', (err) => {
-    console.error('❌ WebSocket error:', err.message);
+    console.error(' WebSocket error:', err.message);
   });
 };
 
 // --- Aggregation and Publishing Logic ---
 const startPublisher = () => {
   console.log(
-    `🚀 Starting Redis publisher. Updates will be sent every ${PUBLISH_INTERVAL_MS}ms.`,
+    `Starting Redis publisher. Updates will be sent every ${PUBLISH_INTERVAL_MS}ms.`,
   );
 
   setInterval(async () => {
@@ -154,7 +154,7 @@ const startPublisher = () => {
       // Publish the payload to the specified Redis channel
       await redisPublisher.publish(REDIS_CHANNEL, JSON.stringify(payload));
       console.log(
-        `📦 Published ${priceUpdates.length} price updates to Redis.`,
+        `Published ${priceUpdates.length} price updates to Redis.`,
       );
     } catch (error) {
       console.error('❌ Failed to publish to Redis:', error);

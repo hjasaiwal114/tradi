@@ -12,6 +12,8 @@
 
     /* Module Resolution Options */
     "moduleResolution": "node",
+    "esModuleInterop": true, 
+  
 
     /* Output Directory */
     "outDir": "./dist",

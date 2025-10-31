@@ -12,7 +12,7 @@ import { webSocketKoJodna } from './src/infrastructure/websocket';
 const app = express();
 const httpServer = createServer(app);
 
-// middleware;;;
+// middleware
 app.use(express.json());
 app.use(cookieParser(config.cookieSecret));
 

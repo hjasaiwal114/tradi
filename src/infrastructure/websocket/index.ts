@@ -16,13 +16,13 @@ const  REDIS_CHANNEL = 'price-updates';
 const wss = new WebSocketServer({noServer: true});
 
 // set efficient way to store and manage all active client connection
-const connnectedHueClients = new Set<WebSocket>();
+const connectedHueClients = new Set<WebSocket>();
 
 wss.on('connection', (ws: WebSocket) => {
     console.log('client connected to websocket');
 
     // client adding
-    connnectedHueClients.add(ws);
+    connectedHueClients.add(ws);
 
     wss.on('close', () => {
         console.log('client diconnected from websocket')
@@ -48,7 +48,7 @@ resdisKaPanjiKaran.on('message', (channel, message) => {
     // we only care about message on our specific channel
     if (channel === REDIS_CHANNEL) {
         // broadcast it to evvery single connected client;
-        for (const client of connnectedHueClients) {
+        for (const client of connectedHueClients) {
             // clients khula hua h?
             if (client.readyState === WebSocket.OPEN) {
                 client.send(message);
