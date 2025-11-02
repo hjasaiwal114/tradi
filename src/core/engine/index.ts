@@ -72,3 +72,6 @@ export function normalizeMessage(msg: null ) : NormalizedPriceMessage | null{
     
 }
 
+export function getDroppedMessageCount() {
+    return droppedMessage; 
+}
