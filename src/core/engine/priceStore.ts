@@ -40,3 +40,9 @@ export function getPriceBySymbol(symbol: string): NormalisePrice | undefined {
     return PRICE.get(symbol);
 }
 
+export function getPrice(): Record<string, NormalisePrice> {
+    return Object.fromEntries(PRICE);
+}
+export function getPriceBySymbol(symbol: string): NormalisePrice | undefined {
+    return PRICE.get(symbol);
+}
